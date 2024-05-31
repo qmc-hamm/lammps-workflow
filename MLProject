@@ -10,4 +10,4 @@ entry_points:
     # A copy will be uploaded to the MLFlow artifact store.
     parameters:
       model_uri: {str, default: "models:/MACE Solid Hydrogen/2"}
-    command: "python build_model.py {model_uri}"
+    command: "python scripts/build_model.py {model_uri}"
