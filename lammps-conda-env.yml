@@ -1,0 +1,16 @@
+name: lammps-mlflow-test
+channels:
+  - defaults
+  - pytorch
+  - nvidia
+dependencies:
+  - pip
+  - python~=3.11
+  - libgcc-ng~=11.2
+  - pytorch=2.0.1=py3.11_cuda11.7*
+  - cudatoolkit=11.7
+  - pip:
+        - mlflow
+        - git+https://github.com/ACEsuit/mace.git@develop
+
+

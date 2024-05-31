@@ -1,0 +1,6 @@
+{
+  "partition": "IllinoisComputes-GPU",
+  "account": "ncsa-ic",
+  "gres": "gpu:1",
+  "modules":["cuda/11.7"]
+}

@@ -1,0 +1,13 @@
+# This environment is for running MLflow on a Slurm cluster
+# This is not the environment for the LAMMPS workflow itself. That is
+# defined in the `lammps-conda-env.yml` file.
+name: mlflow-env
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - PyTorch
+  - pip
+  - pip:
+    - mlflow
+    - mlflow-slurm
