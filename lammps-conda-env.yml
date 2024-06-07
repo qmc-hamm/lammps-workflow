@@ -12,5 +12,4 @@ dependencies:
   - pip:
         - mlflow
         - git+https://github.com/ACEsuit/mace.git@develop
-
-
+        - ipi==2.6.0

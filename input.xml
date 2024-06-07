@@ -1,0 +1,44 @@
+<simulation verbosity="high">
+  <system>
+    <initialize nbeads="8">
+      <file mode="xyz"> init.xyz </file>
+      <velocities mode="thermal" units="kelvin"> 600 </velocities>
+    </initialize>
+    <forces>
+      <force forcefield="lammps"/>
+    </forces>
+    <motion mode="dynamics">
+      <dynamics mode="npt">
+        <timestep units="femtosecond"> 0.1 </timestep>
+        <thermostat mode="pile_g">
+          <pile_lambda> 0.5 </pile_lambda>
+          <tau units="femtosecond"> 10 </tau>
+        </thermostat>
+        <barostat mode="flexible">
+          <tau units="femtosecond"> 10 </tau>
+          <thermostat mode="langevin">
+            <tau units="femtosecond"> 10 </tau>
+          </thermostat>
+        </barostat>
+      </dynamics>
+    </motion>
+    <ensemble>
+      <temperature units="kelvin"> 1800 </temperature>
+      <pressure units="megapascal"> 50000.0 </pressure>
+    </ensemble>
+  </system>
+  <output prefix="simulation">
+    <properties stride="10" flush="1" filename="out"> ['step','time{picosecond}','conserved{electronvolt}',
+ 'potential{electronvolt}','kinetic_cv{electronvolt}','temperature{kelvin}','pressure_cv{megapascal}','stress_cv{megapascal}','cell_h{angstrom}'] </properties>
+    <trajectory filename="pos" stride="10" flush="1" cell_units="angstrom"> positions{angstrom} </trajectory>
+    <trajectory filename="force" stride="10" flush="1" cell_units="angstrom"> forces </trajectory>
+    <checkpoint stride="10"/>
+  </output>
+  <ffsocket name='lammps' mode='unix'>
+    <address>mace</address>
+  </ffsocket>
+  <prng>
+    <seed> 736680538 </seed>
+  </prng>
+  <total_steps>10</total_steps>
+</simulation>
