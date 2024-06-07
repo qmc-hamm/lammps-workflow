@@ -10,4 +10,19 @@ entry_points:
     # A copy will be uploaded to the MLFlow artifact store.
     parameters:
       model_uri: {str, default: "models:/MACE Solid Hydrogen/2"}
-    command: "python scripts/build_model.py {model_uri}"
+    command: "python build_model.py {model_uri}"
+
+  gen_xyz:
+    parameters:
+        pressure: {int, default: 50}
+    command: "PYTHONPATH=src; python scripts/gen_xyz.py {pressure}"
+
+  simulation:
+    parameters:
+        model_path: {str, default: "model.pt"}
+        total_steps: {int, default: 1000}
+        pressure: {int, default: 50}
+        temperature: {int, default: 300}
+        nbeads: {int, default: 16}
+    command: "scripts/simulation.sh -m {model_path} -s {total_steps} \
+                            -p {pressure} -v {temperature} -n {nbeads}"
