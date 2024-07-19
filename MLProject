@@ -3,6 +3,7 @@ name: Mace LAMMPS
 conda_env: lammps-conda-env.yml
 
 entry_points:
+
   build-model:
     # Download a mace model from the repository and convert it to
     # a LAMMPS model .pt file. This will be saved to a subdirectory
@@ -10,12 +11,15 @@ entry_points:
     # A copy will be uploaded to the MLFlow artifact store.
     parameters:
       model_uri: {str, default: "models:/MACE Solid Hydrogen/2"}
-    command: "python build_model.py {model_uri}"
+      parent_run_id: {str, default: ""}
+
+    command: "python scripts/build_model.py {model_uri} {parent_run_id}"
 
   gen_xyz:
     parameters:
         pressure: {int, default: 50}
-    command: "PYTHONPATH=src; python scripts/gen_xyz.py {pressure}"
+        parent_run_id: {str, default: ""}
+    command: "mkdir -p {parent_run_id}; cd {parent_run_id}; PYTHONPATH=../src:../external/solid_hydrogen python ../scripts/gen_xyz.py {pressure}"
 
   simulation:
     parameters:
@@ -24,5 +28,6 @@ entry_points:
         pressure: {int, default: 50}
         temperature: {int, default: 300}
         nbeads: {int, default: 16}
-    command: "scripts/simulation.sh -m {model_path} -s {total_steps} \
+        parent_run_id: {str, default: ""}
+    command: "cd {parent_run_id}; ../scripts/simulation.sh -m {model_path} -s {total_steps} \
                             -p {pressure} -v {temperature} -n {nbeads}"
