@@ -1,8 +1,15 @@
 #!/bin/bash
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/projects/qmchamm/shared/scott_builds/libtorch/lib"
+module load cmake openmpi
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/projects/bcqo/shubhanggoswami/scott_builds/libtorch/lib"
+module list
 echo $LD_LIBRARY_PATH
 export OMP_NUM_THREADS=12
 export MKL_NUM_THREADS=12
+node=$(hostname)
+node=${node%%.*}
+cur_time=$(date +%Y%m%d%H%M%S)
+IPI=$(which i-pi)
+lmp=/projects/bcqo/shubhanggoswami/lammps/build/bin/lmp
 
 export SCRIPTS_DIR=../../scripts
 
