@@ -25,6 +25,7 @@ def main(model_uri: str, local_dir: str):
         lammps_model_path = os.path.join(local_dir, "mace-model-lammps.pt")
         lammps_model_compiled.save(lammps_model_path)
 
+        mlflow.log_artifact(lammps_model_path)
 
 if __name__ == '__main__':
     assert len(sys.argv) == 3, "Usage: python build_model.py <model uri> <parent runid>"
