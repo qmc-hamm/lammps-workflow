@@ -22,6 +22,7 @@ do
         t) temp="-t ${OPTARG}";;
         v) velocity="-v ${OPTARG}";;
         n) nbeads="-n ${OPTARG}";;
+        c) case=${OPTARG};;
     esac
 done
 
@@ -43,5 +44,8 @@ else
 	python $SCRIPTS_DIR/edit_xml.py -i ../../input.xml -o input.xml $velocity $temp -a ${node}${cur_time} $presure_option $nbeads
 	python -u $IPI input.xml > log.ipi.txt &
 
-	sleep 6
+	sleep 60
+	$lmp -v address ${node}${cur_time} \
+	-v pot_dir $(realpath ..) \
+	-in ../in.mace.$case.txt &
 fi

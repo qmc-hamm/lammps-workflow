@@ -29,5 +29,6 @@ entry_points:
         temperature: {int, default: 300}
         nbeads: {int, default: 16}
         parent_run_id: {str, default: ""}
+        case: {str, default: "QMC"}
     command: "cd {parent_run_id}; ../scripts/simulation.sh -m {model_path} -s {total_steps} \
                             -p {pressure} -v {temperature} -n {nbeads}"
