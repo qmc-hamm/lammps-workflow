@@ -24,11 +24,12 @@ entry_points:
   simulation:
     parameters:
         model_path: {str, default: "model.pt"}
-        total_steps: {int, default: 1000}
+        iterations: {int, default: 1000}
         pressure: {int, default: 50}
         temperature: {int, default: 300}
         nbeads: {int, default: 16}
         parent_run_id: {str, default: ""}
         case: {str, default: "QMC"}
-    command: "cd {parent_run_id}; ../scripts/simulation.sh -m {model_path} -s {total_steps} \
-                            -p {pressure} -v {temperature} -n {nbeads}"
+        sequential_workers: {int, default: 1}
+    command: "cd {parent_run_id}; ../scripts/simulation.sh -m {model_path} -s {iterations} \
+                            -p {pressure} -t {temperature} -n {nbeads} -c {case}"
