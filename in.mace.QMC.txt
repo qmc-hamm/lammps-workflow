@@ -1,0 +1,16 @@
+units metal
+dimension 3
+boundary p p p
+atom_style atomic
+atom_modify map yes
+neighbor 2.0 bin
+neigh_modify one 9000 page 100000 delay 0 every 1 check yes
+thermo 10
+read_data ../../../data.txt
+mass 1 1.008
+variable rmax equal 7.4e-01
+pair_style mace no_domain_decomposition
+pair_coeff * * ${pot_dir}/mace-model-lammps.pt H
+
+fix 1 all ipi ${address} 32345 unix
+run 10000000

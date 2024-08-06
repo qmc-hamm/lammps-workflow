@@ -9,5 +9,5 @@ dependencies:
   - PyTorch
   - pip
   - pip:
-    - mlflow
+    - mlflow-skinny
     - mlflow-slurm
